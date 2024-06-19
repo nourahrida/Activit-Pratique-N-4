@@ -1,0 +1,26 @@
+<nav class="p-3 w-100 d-flex justify-content-between bg-dark navbar-dark">
+  <ul class="nav nav-pills">
+    <li *ngFor="let action of actions" class="nav-item">
+      <a
+        class="nav-link"
+        [class.fw-bold]="action === currentAction"
+        [class.link-success]="action === currentAction"
+        [class.link-warning]="action !== currentAction"
+        routerLink="{{ action.route }}"
+        (click)="updateCurrentAction(action)"
+      >
+        <i class="bi {{ action.icon }}"></i>
+        {{ action.title }}
+      </a>
+    </li>
+  </ul>
+  <ul class="nav nav-pills">
+    <li *ngIf="appState.authState.isAuthenticated" class="nav-item d-flex align-items-center">
+      <span class="text-success me-2">{{ appState.authState.username }}</span>
+      <button class="nav-link link link-danger" (click)="logout()">Logout</button>
+    </li>
+    <li *ngIf="!appState.authState.isAuthenticated" class="nav-item">
+      <button class="nav-link link link-warning" (click)="login()">Login</button>
+    </li>
+  </ul>
+</nav>

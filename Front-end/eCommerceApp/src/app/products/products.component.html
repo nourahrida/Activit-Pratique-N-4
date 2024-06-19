@@ -1,0 +1,49 @@
+<div *ngIf="appState.productState.status === 'LOADING'" class="d-flex justify-content-center align-items-center" style="height: 200px;">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+<h2 class="text-center fw-light">Here is a list of Product</h2>
+<div *ngIf="appState.productState.status !== 'LOADING'" class="container p-3">
+  <div class="card">
+    <h5 class="card-header">Products</h5>
+    <div class="card-body">
+      <div class="mb-3">
+        <label for="product-search" class="form-label">Search Products:</label>
+        <div class="input-group">
+          <input id="product-search" class="form-control" type="text" [(ngModel)]="appState.productState.keyword">
+          <button (click)="searchProducts(appState.productState.keyword)" class="btn btn-outline-success">
+            Search
+          </button>
+        </div>
+      </div>
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Price</th>
+          <th>is in stock?</th>
+          <th>Operation</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let product of appState.productState.products">
+          <td>{{ product.name }}</td>
+          <td>{{ product.description }}</td>
+          <td>{{ product.price }}</td>
+          <td>
+            <button (click)="handleCheckProduct(product)" class="btn btn-outline-success">
+              {{ product.checked ? "Checked" : "Unchecked" }}
+            </button>
+          </td>
+          <td>
+            <button (click)="handleDelete(product)" class="btn btn-danger">Delete</button>
+            <button (click)="handleEdit(product)" class="btn btn-warning ms-2">Edit</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
